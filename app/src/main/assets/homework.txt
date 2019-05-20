@@ -1,0 +1,43 @@
+(X) Ejercicio: Creación de la aplicación MasterListas
+(X) Ejercicio: Preparar gráficos para diferentes resoluciones
+(_) Ejercicio: Elegir la paleta de colores de la aplicación
+(_) Ejercicio: Crear superficies
+(_) Ejercicio: Añadiendo un botón flotante
+(_) Ejercicio: Mostrar un mensaje con Snackbar
+(_) Ejercicio: Rompimiento de bordes con el botón
+(_) Ejercicio: Vista de scroll
+(_) Ejercicio: Imagen que se colapsa
+(_) Ejercicio: RecyclerView para mostrar las listas
+(_) Ejercicio: Uso de CardView
+(_) Ejercicio: Selección de un elemento en un RecyclerView
+(_) Ejercicio: Creación de la pantalla de inicio de sesión
+(_) Ejercicio: Uso de Checkbox
+(_) Ejercicio: Mostrar/ocultar caracteres en campo de contraseña
+(_) Ejercicio: Botones con efecto onda (ripple)
+(_) Ejercicio: Crear botones con iconos
+(_) Ejercicio: Crear botones planos
+(_) Ejercicio: Añadir un Navigation Drawer en MasterListas
+(_) Ejercicio: Transiciones de entrada / salida
+(_) Ejercicio: Transiciones de reentrada / retorno
+(_) Ejercicio: Compartir una imagen entre actividades
+(_) Ejercicio: Animación de varios elementos de Listas
+(_) Ejercicio: Interpoladores en MasterListas
+(_) Ejercicio: Trayectoria curva en un elemento compartido
+(_) Ejercicio: Navigation Drawer “elástico”
+(_) Ejercicio: La aplicación Topeka
+(_) Ejercicio: Generar eventos con Firebase
+(_) Ejercicio: Agrega propiedades de usuario
+(_) Ejercicio. Uso de Remote Config
+(_) Ejercicio: Ejemplo de test A/B
+Extras:
+(_) Práctica: Ejemplo de aplicación que usa el contexto.
+(_) Práctica: Compartir ejemplo de mala experiencia de usuario.
+(_) Práctica: Ejemplo de aplicación que utilice CardView
+(_) Práctica: Crear la pantalla de registro
+(_) Desafío: Compartir varios elementos entre actividades
+(_) Práctica: Ejemplo de aplicación con movimiento instructivo
+(_) Desafío: Incorporar recurso de Awesome Android UI
+(_) Práctica: Registrar evento en MasterListas
+(_) Práctica: Añadir parámetro de Remote Config en MasterListas
+(_) Práctica: Test A/B en MasterListas
+(_) Otras cosas que quieras añadir
