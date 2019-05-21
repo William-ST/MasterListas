@@ -1,24 +1,24 @@
 (X) Ejercicio: Creación de la aplicación MasterListas
 (X) Ejercicio: Preparar gráficos para diferentes resoluciones
-(_) Ejercicio: Elegir la paleta de colores de la aplicación
-(_) Ejercicio: Crear superficies
-(_) Ejercicio: Añadiendo un botón flotante
-(_) Ejercicio: Mostrar un mensaje con Snackbar
-(_) Ejercicio: Rompimiento de bordes con el botón
-(_) Ejercicio: Vista de scroll
-(_) Ejercicio: Imagen que se colapsa
-(_) Ejercicio: RecyclerView para mostrar las listas
-(_) Ejercicio: Uso de CardView
-(_) Ejercicio: Selección de un elemento en un RecyclerView
-(_) Ejercicio: Creación de la pantalla de inicio de sesión
-(_) Ejercicio: Uso de Checkbox
-(_) Ejercicio: Mostrar/ocultar caracteres en campo de contraseña
-(_) Ejercicio: Botones con efecto onda (ripple)
-(_) Ejercicio: Crear botones con iconos
-(_) Ejercicio: Crear botones planos
-(_) Ejercicio: Añadir un Navigation Drawer en MasterListas
-(_) Ejercicio: Transiciones de entrada / salida
-(_) Ejercicio: Transiciones de reentrada / retorno
+(X) Ejercicio: Elegir la paleta de colores de la aplicación
+(X) Ejercicio: Crear superficies
+(X) ( ) Ejercicio: Añadiendo un botón flotante
+(X) Ejercicio: Mostrar un mensaje con Snackbar
+(X) Ejercicio: Rompimiento de bordes con el botón
+(X) Ejercicio: Vista de scroll
+(X) Ejercicio: Imagen que se colapsa
+(X) Ejercicio: RecyclerView para mostrar las listas
+(X) Ejercicio: Uso de CardView
+(X) Ejercicio: Selección de un elemento en un RecyclerView
+(X) Ejercicio: Creación de la pantalla de inicio de sesión
+(X) Ejercicio: Uso de Checkbox
+(X) Ejercicio: Mostrar/ocultar caracteres en campo de contraseña
+(X) Ejercicio: Botones con efecto onda (ripple)
+(X) Ejercicio: Crear botones con iconos
+(X) Ejercicio: Crear botones planos
+(X) Ejercicio: Añadir un Navigation Drawer en MasterListas
+(X) Ejercicio: Transiciones de entrada / salida
+(X) Ejercicio: Transiciones de reentrada / retorno
 (_) Ejercicio: Compartir una imagen entre actividades
 (_) Ejercicio: Animación de varios elementos de Listas
 (_) Ejercicio: Interpoladores en MasterListas

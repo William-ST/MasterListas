@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">MasterListas</string>
+
+    <string name="collapse_string">Listas disponibles en la aplicación Master Listas</string>
+
+    <string name="drawer_open">navigation drawer abierto</string>
+    <string name="drawer_close">navigation drawer cerrado</string>
+
+
+
 </resources>
