@@ -88,6 +88,7 @@
         app:elevation="6dp"
         app:layout_anchor="@+id/nsv"
         app:layout_anchorGravity="top|end"
-        app:rippleColor="#616161" />
+        app:rippleColor="#616161"
+        android:transitionName ="@string/transition_action_plus"/>
 
 </android.support.design.widget.CoordinatorLayout>

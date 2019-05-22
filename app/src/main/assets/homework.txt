@@ -19,12 +19,12 @@
 (X) Ejercicio: Añadir un Navigation Drawer en MasterListas
 (X) Ejercicio: Transiciones de entrada / salida
 (X) Ejercicio: Transiciones de reentrada / retorno
-(_) Ejercicio: Compartir una imagen entre actividades
-(_) Ejercicio: Animación de varios elementos de Listas
-(_) Ejercicio: Interpoladores en MasterListas
-(_) Ejercicio: Trayectoria curva en un elemento compartido
-(_) Ejercicio: Navigation Drawer “elástico”
-(_) Ejercicio: La aplicación Topeka
+(X) Ejercicio: Compartir una imagen entre actividades
+(X) Ejercicio: Animación de varios elementos de Listas
+(X) Ejercicio: Interpoladores en MasterListas
+(X) Ejercicio: Trayectoria curva en un elemento compartido
+(X) Ejercicio: Navigation Drawer “elástico”
+(X) Ejercicio: La aplicación Topeka
 (_) Ejercicio: Generar eventos con Firebase
 (_) Ejercicio: Agrega propiedades de usuario
 (_) Ejercicio. Uso de Remote Config

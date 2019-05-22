@@ -6,6 +6,8 @@
     <string name="drawer_open">navigation drawer abierto</string>
     <string name="drawer_close">navigation drawer cerrado</string>
 
-
+    <!--Transición-->
+    <string name="transition_name_img">transition:IMG</string>
+    <string name="transition_action_plus">transition:ACTION_PLUS</string>
 
 </resources>
