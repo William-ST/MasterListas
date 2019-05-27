@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -23,20 +24,76 @@
             android:layout_marginLeft="36dp"
             android:scaleType="fitCenter"
             android:src="@drawable/trabajo"
-            android:transitionName ="@string/transition_name_img"/>
+            android:transitionName="@string/transition_name_img" />
 
     </android.support.v7.widget.Toolbar>
 
+    <!--
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:clickable="true"
         android:src="@drawable/fab_plus"
+        android:transitionName="@string/transition_action_plus"
         app:elevation="6dp"
-        app:rippleColor="#616161"
+        app:rippleColor="#616161" />
+    -->
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:transitionName="@string/transition_action_plus"
+        android:id="@+id/multiple_actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_gravity="bottom|right"
-        android:transitionName ="@string/transition_action_plus"/>
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="4dp"
+        fab:fab_addButtonColorNormal="@color/white"
+        fab:fab_addButtonColorPressed="@color/white_pressed"
+        fab:fab_addButtonPlusIconColor="@color/half_black"
+        fab:fab_addButtonSize="mini"
+        fab:fab_labelStyle="@style/menu_labels_style">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_send_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_size="mini"
+            fab:fab_title="Enviar SMS" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_send_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_size="mini"
+            fab:fab_title="Enviar Email" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_size="mini"
+            fab:fab_title="Iniciar LLamar" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_videocall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_size="mini"
+            fab:fab_title="Iniciar Videollamada" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </android.support.design.widget.CoordinatorLayout>
