@@ -123,7 +123,7 @@
             android:layout_marginRight="8dp"
             android:background="@drawable/ripple"
             android:elevation="2dp"
-            android:onClick="registrar"
+            android:onClick="acceder"
             android:text="REGISTRAR USUARIO"
             android:textColor="@android:color/white"
             app:layout_constraintLeft_toLeftOf="parent"

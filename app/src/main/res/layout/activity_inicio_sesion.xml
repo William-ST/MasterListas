@@ -141,6 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:onClick="goToRegister"
             android:background="@drawable/ripple2"
             android:clickable="true"
             android:text="QUIERO REGISTRARME EN LA APLICACIÓN"

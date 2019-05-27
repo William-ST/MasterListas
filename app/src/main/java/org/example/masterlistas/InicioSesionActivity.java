@@ -10,6 +10,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import static org.example.masterlistas.RegistroActivity.ARG_USERNAME;
+
 public class InicioSesionActivity extends AppCompatActivity {
 
     @Override
@@ -46,6 +48,14 @@ public class InicioSesionActivity extends AppCompatActivity {
         usuario.setText("");
         contraseña.setText("");
         usuario.requestFocus();
+    }
+
+    public void goToRegister(View view) {
+        EditText editText = findViewById(R.id.usuario);
+        final String username = editText.getText().toString();
+        Intent intent = new Intent(this, RegistroActivity.class);
+        intent.putExtra(ARG_USERNAME, username);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
 }
