@@ -24,4 +24,9 @@
 
     </style>
 
+    <style name="menu_labels_style">
+        <item name="android:background">#2d2d2d</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 </resources>

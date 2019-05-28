@@ -1,6 +1,8 @@
 package org.example.masterlistas;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -18,10 +20,16 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
@@ -34,11 +42,38 @@ public class ListasActivity extends AppCompatActivity {
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
+    private FirebaseAnalytics analytics;
+    private long timeLoggin;
+    private FirebaseRemoteConfig remoteConfig;
+    private static final int CACHE_TIME_SECONDS = 3600; // 10 HORAS
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listas);
+        analytics = FirebaseAnalytics.getInstance(this);
+        remoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings config = new FirebaseRemoteConfigSettings
+                .Builder().setDeveloperModeEnabled(BuildConfig.DEBUG).build();
+        remoteConfig.setConfigSettings(config);
+        remoteConfig.setDefaults(R.xml.remote_config);
+        remoteConfig.fetch(CACHE_TIME_SECONDS)
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(ListasActivity.this, "Fetch OK", Toast.LENGTH_SHORT).show();
+                            remoteConfig.activateFetched();
+                        } else {
+                            Toast.makeText(ListasActivity.this, "Fetch ha fallado", Toast.LENGTH_SHORT).show();
+                        }
+                        final boolean navigationDrawerAbierto = remoteConfig.getBoolean("navigation_drawer_abierto");
+                        updatePrimeraVez(navigationDrawerAbierto);
+
+                    }
+                });
+
+        timeLoggin = System.currentTimeMillis();
         // Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
@@ -56,6 +91,24 @@ public class ListasActivity extends AppCompatActivity {
                 });
         mDrawer = (FlowingDrawer) findViewById(R.id.drawerlayout);
         mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
+        mDrawer.setOnDrawerStateChangeListener(new ElasticDrawer.OnDrawerStateChangeListener() {
+            @Override
+            public void onDrawerStateChange(int oldState, int newState) {
+                if (newState == ElasticDrawer.STATE_CLOSED) {
+                    timeLoggin = System.currentTimeMillis();
+                } else if (newState == ElasticDrawer.STATE_OPEN) {
+                    Bundle param = new Bundle();
+                    param.putString("element", "drawer left");
+                    param.putLong("timebetweenLogin", System.currentTimeMillis() - timeLoggin);
+                    analytics.logEvent("openLeftMenu", param);
+                }
+            }
+
+            @Override
+            public void onDrawerSlide(float openRatio, int offsetPixels) {
+                Log.i("MainActivity", "openRatio=" + openRatio + " ,offsetPixels=" + offsetPixels);
+            }
+        });
         toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +159,9 @@ public class ListasActivity extends AppCompatActivity {
 
         Transition lista_enter = TransitionInflater.from(this).inflateTransition(R.transition.transition_lista_enter);
         getWindow().setEnterTransition(lista_enter);
+
+        abrePrimeraVez(); // se abre la siguiente vez que ingresa, ya que el remote config puede
+        // tardar en sincronizar y sería mala experiencia mostrarle el menu cuando no haya hecho mada
     }
 
     @Override
@@ -116,4 +172,23 @@ public class ListasActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
+    public void updatePrimeraVez(boolean update) {
+        SharedPreferences sp = getSharedPreferences("mispreferencias", 0);
+        SharedPreferences.Editor e = sp.edit();
+        e.putBoolean("abrePrimeraVez", update).commit();
+    }
+
+    public void abrePrimeraVez() {
+        SharedPreferences sp = getSharedPreferences("mispreferencias", 0);
+        boolean primerAcceso = sp.getBoolean("abrePrimeraVez", false);
+        if (primerAcceso) {
+            if (mDrawer != null) {
+                mDrawer.openMenu();
+                SharedPreferences.Editor e = sp.edit();
+                e.putBoolean("abrePrimeraVez", false).commit();
+            }
+        }
+    }
+
 }

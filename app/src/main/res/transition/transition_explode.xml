@@ -6,12 +6,14 @@
             <target android:excludeId="@android:id/navigationBarBackground" />
             <target android:excludeId="@id/app_bar"/>
             <target android:excludeId="@id/detail_toolbar" />
+            <target android:excludeId="@id/multiple_actions"/>
         </targets>
     </explode>
     <fade android:duration="1000">
         <targets>
             <target android:targetId="@id/app_bar" />
             <target android:targetId="@id/detail_toolbar" />
+            <target android:targetId="@id/multiple_actions" />
         </targets>
     </fade>
 </transitionSet>

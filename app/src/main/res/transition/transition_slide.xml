@@ -5,7 +5,7 @@
         android:slideEdge="top">
         <targets>
             <target android:excludeId="@android:id/statusBarBackground" />
-            <target android:excludeId="@android:id/navigationBarBackground" />
+            <target android:excludeId="@android:id/navigationBarBackground" />/>
         </targets>
     </slide>
     <!--
