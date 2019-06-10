@@ -11,9 +11,9 @@
 (X) Ejercicio: Indica versión, subir y tipo de firma del APK
 (X) Ejercicio: Cumplimentar la clasificación del contenido
 (X) Ejercicio: Cumplimentar el precio y distribución de la aplicación
-(_) Ejercicio: Añadir errores y visualizarlos con Android Vitals
-(_) Ejercicio: Ofuscar el código y publicar el archivo de desofuscación
-(_) Práctica: Palabras clave mediante Brainstorming en MasterLista Keywords: Lista de la compra, …
+(-) Ejercicio: Añadir errores y visualizarlos con Android Vitals
+(-) Ejercicio: Ofuscar el código y publicar el archivo de desofuscación
+(-) Práctica: Palabras clave mediante Brainstorming en MasterLista Keywords: Lista de la compra, …
 (_) Práctica: Keywords por análisis de competencia en MasterListas Keywords añadidos:
 (_) Práctica: Keywords mediante AppKeywords.net. para MasterListas Keywords añadidos:
 (_) Práctica: Keywords mediante Google Trends para MasterListas Keywords añadidos:
@@ -25,4 +25,44 @@ Extras:
 (_) Práctica: Optimizar la descripción larga de MasterListas Descripción larga: palabras clave muy relevantes: palabras clave relevantes:
 (_) Práctica: Optimizar el identificador de MasterListas identificador:
 (_) Desafío: Optimizar capturas de pantalla en MasterListas
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    (_) Desafío: Optimizar capturas de pantalla en MasterListas
+
+
+
+
+Brainstorming masterLista:
+=====================
+
+Lista inicial:
+--------------
+lista compra
+compra lista
+compra listas
+lista compras
+compras listas
+listas maestra
+masterlistas
+lista maestra
+lista m
+m listas
+lista maestro
+lista master
+master list
+lista mastro
+lista maesto
+lista maesta
+lista online
+lista mercado online
+lista compra online
+listas android
+lista android
+
+Añadidas como sinónimos:
+------------------------
+Añadidas como misspelling:
+--------------------------
+
+
+
+
+
+
