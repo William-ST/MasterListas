@@ -1,4 +1,4 @@
-package org.example.masterlistas;
+package org.wsulca.masterlistas;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import static org.example.masterlistas.RegistroActivity.ARG_USERNAME;
+import static org.wsulca.masterlistas.RegistroActivity.ARG_USERNAME;
 
 public class InicioSesionActivity extends AppCompatActivity {
 
@@ -22,8 +22,8 @@ public class InicioSesionActivity extends AppCompatActivity {
 
     public void loguearCheckbox(View v) {
         CheckBox recordarme = (CheckBox) findViewById(R.id.recordarme);
-        String s = "Recordar datos de usuario: " +
-                (recordarme.isChecked() ? "Sí" : "No");
+        String s = getString(R.string.recordar_datos_usuario) +
+                (recordarme.isChecked() ? android.R.string.yes: android.R.string.no);
         Toast.makeText(this, s, Toast.LENGTH_LONG).show();
     }
 

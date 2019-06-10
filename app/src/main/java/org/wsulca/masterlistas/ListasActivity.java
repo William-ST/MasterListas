@@ -1,4 +1,4 @@
-package org.example.masterlistas;
+package org.wsulca.masterlistas;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,12 +9,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -62,10 +58,10 @@ public class ListasActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(ListasActivity.this, "Fetch OK", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ListasActivity.this, getString(R.string.fetch_successfully), Toast.LENGTH_SHORT).show();
                             remoteConfig.activateFetched();
                         } else {
-                            Toast.makeText(ListasActivity.this, "Fetch ha fallado", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ListasActivity.this, getString(R.string.fetch_failure), Toast.LENGTH_SHORT).show();
                         }
                         final boolean navigationDrawerAbierto = remoteConfig.getBoolean("navigation_drawer_abierto");
                         updatePrimeraVez(navigationDrawerAbierto);
@@ -119,8 +115,8 @@ public class ListasActivity extends AppCompatActivity {
 
         //Inicializar los elementos
         List items = new ArrayList();
-        items.add(new Lista(R.drawable.trabajo, "Trabajo", 2));
-        items.add(new Lista(R.drawable.casa, "Personal", 3));
+        items.add(new Lista(R.drawable.trabajo, getString(R.string.title_work), 2));
+        items.add(new Lista(R.drawable.casa, getString(R.string.title_personal), 3));
         // Obtener el Recycler
         recycler = (RecyclerView) findViewById(R.id.reciclador);
         recycler.setHasFixedSize(true);
@@ -129,7 +125,7 @@ public class ListasActivity extends AppCompatActivity {
         lManager = new LinearLayoutManager(this);
         recycler.setLayoutManager(lManager);
         // Crear un nuevo adaptador
-        adapter = new ListaAdapter(items);
+        adapter = new ListaAdapter(ListasActivity.this, items);
         recycler.setAdapter(adapter);
         recycler.addOnItemTouchListener(new RecyclerItemClickListener(ListasActivity.this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -153,7 +149,7 @@ public class ListasActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Se presionó el FAB", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, getString(R.string.fab_pressed), Snackbar.LENGTH_LONG).show();
             }
         });
 

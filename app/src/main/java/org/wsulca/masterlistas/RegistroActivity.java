@@ -1,4 +1,4 @@
-package org.example.masterlistas;
+package org.wsulca.masterlistas;
 
 import android.app.ActivityOptions;
 import android.content.Intent;

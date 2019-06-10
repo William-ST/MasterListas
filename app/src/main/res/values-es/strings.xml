@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MasterListas</string>
+
+    <string name="drawer_open">navigation drawer abierto</string>
+    <string name="drawer_close">navigation drawer cerrado</string>
+
+    <string name="collapse_string">Listas disponibles en la aplicación Master Listas</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="nombre_de_usuario_o_correo">Nombre de usuario o correo</string>
+    <string name="contrasen_a">Contraseña</string>
+    <string name="recordarme">Recordarme</string>
+    <string name="mostrar_contrasen_a">Mostrar contraseña</string>
+    <string name="borrar">Borrar</string>
+    <string name="he_olvidado_mi_contrasen_a">HE OLVIDADO MI CONTRASEÑA</string>
+    <string name="quiero_registrarme_en_la_aplicacio_n">QUIERO REGISTRARME EN LA APLICACIÓN</string>
+    <string name="iniciar_sesio_n_con_facebook">Iniciar sesión con Facebook</string>
+    <string name="iniciar_sesio_n_con_google">Iniciar sesión con Google</string>
+    <string name="registro_de_usuario">Registro de usuario</string>
+    <string name="nombre_de_usuario">Nombre de usuario</string>
+    <string name="correo_electr_nico">Correo electrónico</string>
+    <string name="registrar_usuario">REGISTRAR USUARIO</string>
+    <string name="listas">Listas</string>
+    <string name="masterlistas">MasterListas</string>
+    <string name="android_curso_url">http://www.androidcurso.com/es</string>
+    <string name="recordar_datos_usuario">Recordar datos de usuario:</string>
+    <string name="title_work">Trabajo</string>
+    <string name="title_personal">Personal</string>
+    <string name="elements">Elementos:</string>
+    <string name="fab_pressed">Se presionó el FAB</string>
+    <string name="fetch_successfully">Fetch satisfactorio</string>
+    <string name="fetch_failure">Fetch ha fallado</string>
+    <string name="opcio_n_1">Opción 1</string>
+    <string name="opcio_n_2">Opción 2</string>
+    <string name="opcio_n_3">Opción 3</string>
+    <string name="acciones_adicionales">Acciones adicionales</string>
+    <string name="preferencias">Preferencias</string>
+    <string name="compartir">Compartir</string>
+
+</resources>

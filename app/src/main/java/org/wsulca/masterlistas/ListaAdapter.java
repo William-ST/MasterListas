@@ -1,5 +1,6 @@
-package org.example.masterlistas;
+package org.wsulca.masterlistas;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import java.util.List;
 public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ListaViewHolder> {
 
     private List<Lista> items;
+    private Context context;
 
     public static class ListaViewHolder extends RecyclerView.ViewHolder { // Campos respectivos de un item
         public ImageView imagen;
@@ -26,7 +28,8 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ListaViewHol
         }
     }
 
-    public ListaAdapter(List<Lista> items) {
+    public ListaAdapter(Context context, List<Lista> items) {
+        this.context = context;
         this.items = items;
     }
 
@@ -46,7 +49,7 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ListaViewHol
     public void onBindViewHolder(ListaViewHolder viewHolder, int i) {
         viewHolder.imagen.setImageResource(items.get(i).getImagen());
         viewHolder.nombre.setText(items.get(i).getNombre());
-        viewHolder.elementos.setText("Elementos:" + String.valueOf(items.get(i).getElementos()));
+        viewHolder.elementos.setText(context.getString(R.string.elements) + String.valueOf(items.get(i).getElementos()));
     }
 
 }

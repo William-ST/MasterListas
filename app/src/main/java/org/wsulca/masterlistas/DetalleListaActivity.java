@@ -1,7 +1,5 @@
-package org.example.masterlistas;
+package org.wsulca.masterlistas;
 
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -28,10 +26,10 @@ public class DetalleListaActivity extends AppCompatActivity {
         toolbar.setTitle("");
         ImageView imageView = (ImageView) findViewById(R.id.imagen);
         if (numeroLista == 0) {
-            toolbar.setTitle("Trabajo");
+            toolbar.setTitle(R.string.title_work);
             imageView.setImageResource(R.drawable.trabajo);
         } else {
-            toolbar.setTitle("Personal");
+            toolbar.setTitle(R.string.title_personal);
             imageView.setImageResource(R.drawable.casa);
         }
 

@@ -1,13 +1,43 @@
 <resources>
-    <string name="app_name">MasterListas</string>
+    <string name="app_name">MasterLists</string>
 
-    <string name="collapse_string">Listas disponibles en la aplicación Master Listas</string>
+    <string name="drawer_open">navigation drawer open</string>
+    <string name="drawer_close">navigation drawer close</string>
 
-    <string name="drawer_open">navigation drawer abierto</string>
-    <string name="drawer_close">navigation drawer cerrado</string>
+    <string name="collapse_string">lists available in Master Lists application</string>
 
     <!--Transición-->
     <string name="transition_name_img">transition:IMG</string>
     <string name="transition_action_plus">transition:ACTION_PLUS</string>
+    <string name="iniciar_sesion">Log in</string>
+    <string name="nombre_de_usuario_o_correo">Username or Email</string>
+    <string name="contrasen_a">Password</string>
+    <string name="recordarme">Remember me</string>
+    <string name="mostrar_contrasen_a">Show password</string>
+    <string name="borrar">delete</string>
+    <string name="he_olvidado_mi_contrasen_a">I FORGOT MY PASSWORD</string>
+    <string name="quiero_registrarme_en_la_aplicacio_n">I WANT TO REGISTER IN THE APPLICATION</string>
+    <string name="iniciar_sesio_n_con_facebook">Log in with facebook</string>
+    <string name="iniciar_sesio_n_con_google">Log in with Google</string>
+    <string name="registro_de_usuario">User register</string>
+    <string name="nombre_de_usuario">Username</string>
+    <string name="correo_electr_nico">Email</string>
+    <string name="registrar_usuario">REGISTER USER</string>
+    <string name="listas">Lists</string>
+    <string name="masterlistas">MasterLists</string>
+    <string name="android_curso_url">http://www.androidcurso.com/en</string>
+    <string name="recordar_datos_usuario">Remember user data:</string>
+    <string name="title_work">Work</string>
+    <string name="title_personal">Personal</string>
+    <string name="elements">Elementos:</string>
+    <string name="fab_pressed">The FAB was pressed</string>
+    <string name="fetch_successfully">Fetch OK</string>
+    <string name="fetch_failure">Fetch failure</string>
+    <string name="opcio_n_1">Option 1</string>
+    <string name="opcio_n_2">Option 2</string>
+    <string name="opcio_n_3">Option 3</string>
+    <string name="acciones_adicionales">Additional actions</string>
+    <string name="preferencias">Preferences</string>
+    <string name="compartir">Share</string>
 
 </resources>

@@ -1,0 +1,28 @@
+(X) Ejercicio: Traducción de MasterListas al inglés
+(X) Práctica: Traducción automática de la aplicación
+(X) Ejercicio: Adaptando resolución de imágenes a la densidad gráfica
+(X) Ejercicio: Adaptar un gráfico rectangular a diferentes densidades
+(X) Ejercicio: Uso de gráficos vectoriales
+(X) Ejercicio: Crear un icono adaptativo para MasterListas
+(X) Práctica: Actualizar builg.gradle en MasterListas
+(X) Práctica: Modificar paquete e identificador en MasterListas
+(X) Ejercicio: Firmar con tu propia clave
+(X) Ejercicio: Primeros pasos para la publicación de aplicaciones
+(X) Ejercicio: Indica versión, subir y tipo de firma del APK
+(X) Ejercicio: Cumplimentar la clasificación del contenido
+(X) Ejercicio: Cumplimentar el precio y distribución de la aplicación
+(_) Ejercicio: Añadir errores y visualizarlos con Android Vitals
+(_) Ejercicio: Ofuscar el código y publicar el archivo de desofuscación
+(_) Práctica: Palabras clave mediante Brainstorming en MasterLista Keywords: Lista de la compra, …
+(_) Práctica: Keywords por análisis de competencia en MasterListas Keywords añadidos:
+(_) Práctica: Keywords mediante AppKeywords.net. para MasterListas Keywords añadidos:
+(_) Práctica: Keywords mediante Google Trends para MasterListas Keywords añadidos:
+(_) Práctica: Análisis de Palabras clave con Apptweak en MasterListas Keywords añadidos: Keywords mucho volumen: Keywords poca competencia:
+(_) Práctica: Optimizar el título para la aplicación MasterListas Titulo escogido:
+(_) Práctica: Optimizar la descripción corta para MasterListas Descripción corta:
+(_) Ejercicio: Experimento Play Store con el icono de MasterListas
+Extras:
+(_) Práctica: Optimizar la descripción larga de MasterListas Descripción larga: palabras clave muy relevantes: palabras clave relevantes:
+(_) Práctica: Optimizar el identificador de MasterListas identificador:
+(_) Desafío: Optimizar capturas de pantalla en MasterListas
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    (_) Desafío: Optimizar capturas de pantalla en MasterListas

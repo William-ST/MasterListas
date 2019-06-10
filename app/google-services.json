@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "400724024338",
-    "firebase_url": "https://masterlistas-c7a48.firebaseio.com",
-    "project_id": "masterlistas-c7a48",
-    "storage_bucket": "masterlistas-c7a48.appspot.com"
+    "project_number": "868027875772",
+    "firebase_url": "https://masterlistaswsulca.firebaseio.com",
+    "project_id": "masterlistaswsulca",
+    "storage_bucket": "masterlistaswsulca.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:400724024338:android:838b8baea1497b1a",
+        "mobilesdk_app_id": "1:868027875772:android:039a8e57bbc8d203",
         "android_client_info": {
-          "package_name": "org.example.masterlistas"
+          "package_name": "org.wsulca.masterlistas"
         }
       },
       "oauth_client": [
         {
-          "client_id": "400724024338-5a66l6kpn992k20b5dh6s06j7q66nkha.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.example.masterlistas",
-            "certificate_hash": "6c2c20b48596e038d23af7182ed4639cda31b1c7"
-          }
-        },
-        {
-          "client_id": "400724024338-2j25hur84ipgtjslm767o72ikcbm1st1.apps.googleusercontent.com",
+          "client_id": "868027875772-1pru4dv14vgjjr2utjsj0i9ckvngo2fs.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCM_APLKfryyJnLeeaVcol2Sc4FNYWLbtA"
+          "current_key": "AIzaSyCgi9W_LsYOobb237VKl3yFKAcCvjEoN7M"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "400724024338-2j25hur84ipgtjslm767o72ikcbm1st1.apps.googleusercontent.com",
+              "client_id": "868027875772-1pru4dv14vgjjr2utjsj0i9ckvngo2fs.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
