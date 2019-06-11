@@ -11,20 +11,74 @@
 (X) Ejercicio: Indica versión, subir y tipo de firma del APK
 (X) Ejercicio: Cumplimentar la clasificación del contenido
 (X) Ejercicio: Cumplimentar el precio y distribución de la aplicación
-(-) Ejercicio: Añadir errores y visualizarlos con Android Vitals
-(-) Ejercicio: Ofuscar el código y publicar el archivo de desofuscación
-(-) Práctica: Palabras clave mediante Brainstorming en MasterLista Keywords: Lista de la compra, …
-(_) Práctica: Keywords por análisis de competencia en MasterListas Keywords añadidos:
-(_) Práctica: Keywords mediante AppKeywords.net. para MasterListas Keywords añadidos:
-(_) Práctica: Keywords mediante Google Trends para MasterListas Keywords añadidos:
-(_) Práctica: Análisis de Palabras clave con Apptweak en MasterListas Keywords añadidos: Keywords mucho volumen: Keywords poca competencia:
-(_) Práctica: Optimizar el título para la aplicación MasterListas Titulo escogido:
-(_) Práctica: Optimizar la descripción corta para MasterListas Descripción corta:
-(_) Ejercicio: Experimento Play Store con el icono de MasterListas
+(X) Ejercicio: Añadir errores y visualizarlos con Android Vitals
+(X) Ejercicio: Ofuscar el código y publicar el archivo de desofuscación
+(X) Práctica: Palabras clave mediante Brainstorming en MasterLista
+    Keywords: lista compra, compra lista, masterlistas, lista maestra, lista m, m listas,
+    lista maestro, master list, lista online, lista mercado online, lista compra online,
+    listas android, aplicacion lista
+    Sinónimos:
+    market list (mercado -> market)
+    aplicacion lista (app -> aplicación)
+    aplicacion lista (lista -> list)
+    Misspelling:
+    lista mastro (mastro -> maestro)
+    lista maesto (maesto -> maestro)
+    lista maesta (maesta -> maestra)
+    lista compra online (oneline -> online)
+(X) Práctica: Keywords por análisis de competencia en MasterListas
+    Keywords añadidos: Mi lista de compra, Shopping list, Keep my list, Lista de tareas,
+    Multi list to do, Listas sencillas y compartidas, listas de tareas
+(X) Práctica: Keywords mediante AppKeywords.net. para MasterListas
+    Keywords añadidos: lista compra compartida, lista de la compra por supermercados,
+    mi lista de compras, lista de la compra facil, lista de la compra sincronizada,
+    aplicación de lista de compras, aplicaciones de lista de compras gratis,
+    aplicación de lista de compras fácil, lista de tareas pendientes, lista de tareas compartidas,
+    Lista de tareas gratis, mi lista de tareas, lista de tareas pendientes, lista de compras online,
+    lista en línea, aplicación para lista de compras
+(X) Práctica: Keywords mediante Google Trends para MasterListas
+    Keywords añadidos: Lista de compras online, lista de mercado
+(X) Práctica: Análisis de Palabras clave con Apptweak en MasterListas
+    * Keywords añadidos:
+    Tareas Organizador
+    Organizador
+    Pocket lists
+    Tareas importantes
+    * Keywords mucho volumen:
+    Organizador
+    Compras
+    Online
+    Tareas
+    Listas
+    * Keywords poca competencia:
+    Compras
+    Tareas
+    Listas
+    organizador
+(X) Práctica: Optimizar el título para la aplicación MasterListas
+    Titulo escogido: Organizador de listas Online
+(X) Práctica: Optimizar la descripción corta para MasterListas
+    Descripción corta:
+    Organiza tus tareas a través de listas de tareas Online. (elegido)
+    Salvaguarda tus listas con el Organizador de Tareas Online.
+    Comparte tus listas de tareas online con tus amigos.
+(X) Ejercicio: Experimento Play Store con el icono de MasterListas
 Extras:
-(_) Práctica: Optimizar la descripción larga de MasterListas Descripción larga: palabras clave muy relevantes: palabras clave relevantes:
-(_) Práctica: Optimizar el identificador de MasterListas identificador:
-(_) Desafío: Optimizar capturas de pantalla en MasterListas
+(X) Práctica: Optimizar la descripción larga de MasterListas
+    Descripción larga:
+
+    Aplicación para la organización de tareas en listas online disponibles a través de internet; comparte, sincroniza, controlalos con las personas que quieras; compañeros de la universidad, trabajo, amigos de infancia, pareja, familia.
+
+    Aplicación que ayuda a la organización, ejecución de actividades de compras, seguimientos, tarea, avances.
+
+    Modernízate con tus listas digitales siempre estarán disponibles online en todo momento.
+
+    palabras clave muy relevantes:
+    online, aplicacion, listas, organizacion
+    palabras clave relevantes:
+    tareas, sincronizar, comparte, tarea
+(X) Práctica: Optimizar el identificador de MasterListas identificador:
+(X) Desafío: Optimizar capturas de pantalla en MasterListas
 
 
 
@@ -36,33 +90,51 @@ Lista inicial:
 --------------
 lista compra
 compra lista
-compra listas
-lista compras
-compras listas
-listas maestra
 masterlistas
 lista maestra
 lista m
 m listas
 lista maestro
-lista master
 master list
-lista mastro
-lista maesto
-lista maesta
 lista online
 lista mercado online
 lista compra online
 listas android
-lista android
+aplicacion lista
 
 Añadidas como sinónimos:
 ------------------------
+market list (mercado -> market)
+aplicacion lista (app -> aplicación)
+aplicacion lista (lista -> list)
+
+
 Añadidas como misspelling:
 --------------------------
+lista mastro (mastro -> maestro)
+lista maesto (maesto -> maestro)
+lista maesta (maesta -> maestra)
+lista compra online (oneline -> online)
 
 
 
+Tras realizar los dos ejercicios anteriores, indica.
+¿Has añadido nuevas palabras clave a la lista?
+Tareas Organizador
+Organizador
+Pocket lists
+Tareas importantes
 
 
+¿Qué palabras consideras que son especialmente interesantes por su volumen de tráfico?
+Organizador
+Compras
+Online
+Tareas
+Listas
 
+¿Cuáles por estar poco competidas?
+Compras
+Tareas
+Listas
+organizador
