@@ -35,6 +35,8 @@
     <string name="opcio_n_3">Opción 3</string>
     <string name="acciones_adicionales">Acciones adicionales</string>
     <string name="preferencias">Preferencias</string>
-    <string name="compartir">Compartir</string>
+    <string name="compartir">Compartir App</string>
+    <string name="compartir_logo">Compartir Logo</string>
+    <string name="compartir_lista">Compartir Lista</string>
 
 </resources>

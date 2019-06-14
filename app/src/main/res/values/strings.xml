@@ -38,6 +38,8 @@
     <string name="opcio_n_3">Option 3</string>
     <string name="acciones_adicionales">Additional actions</string>
     <string name="preferencias">Preferences</string>
-    <string name="compartir">Share</string>
+    <string name="compartir">Share App</string>
+    <string name="compartir_logo">Compartir Logo</string>
+    <string name="compartir_lista">Compartir Lista</string>
 
 </resources>

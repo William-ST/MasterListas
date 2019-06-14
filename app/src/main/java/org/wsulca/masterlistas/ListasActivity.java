@@ -2,12 +2,16 @@ package org.wsulca.masterlistas;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,10 +33,13 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListasActivity extends AppCompatActivity {
+public class ListasActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private FlowingDrawer mDrawer;
     private RecyclerView recycler;
@@ -76,15 +83,7 @@ public class ListasActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         // Navigation Drawer
         NavigationView navigationView = (NavigationView) findViewById(R.id.vNavigation);
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        Toast.makeText(getApplicationContext(), menuItem.getTitle(),
-                                Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                });
+        navigationView.setNavigationItemSelectedListener(this);
         mDrawer = (FlowingDrawer) findViewById(R.id.drawerlayout);
         mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
         mDrawer.setOnDrawerStateChangeListener(new ElasticDrawer.OnDrawerStateChangeListener() {
@@ -187,4 +186,54 @@ public class ListasActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.nav_compartir:
+                compatirTexto("http://play.google.com/store/apps/details?id=" + getPackageName());
+                break;
+            case R.id.nav_compartir_lista:
+                compatirTexto("LISTA DE LA COMPRA: patatas, leche, huevos. ---- " +
+                        "Compartido por: http://play.google.com/store/apps/details?id=" +
+                        getPackageName());
+                break;
+            case R.id.nav_compartir_logo:
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
+                compatirBitmap(bitmap, "Compartido por: " + "http://play.google.com/store/apps/details?id=" + getPackageName());
+                break;
+        }
+        return false;
+    }
+
+    void compatirTexto(String texto) {
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_TEXT, texto);
+        startActivity(Intent.createChooser(i, "Selecciona aplicación"));
+    }
+
+    void compatirBitmap(Bitmap bitmap, String texto) { // guardamos bitmap en el directorio cache
+        try {
+            File cachePath = new File(getCacheDir(), "images");
+            cachePath.mkdirs();
+            FileOutputStream stream = new FileOutputStream(cachePath + "/image.png");
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            stream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Obtenemos la URI usando el FileProvider
+        File path = new File(getCacheDir(), "images");
+        File file = new File(path, "image.png");
+        Uri uri = FileProvider.getUriForFile(this, getPackageName()+".fileprovider", file); //Compartimos la URI
+        if (uri != null) {
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            // temp permission for receiving app to read this file
+            i.setDataAndType(uri, getContentResolver().getType(uri));
+            i.putExtra(Intent.EXTRA_STREAM, uri);
+            i.putExtra(Intent.EXTRA_TEXT, texto);
+            startActivity(Intent.createChooser(i, "Selecciona aplicación"));
+        }
+    }
 }
