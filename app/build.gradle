@@ -38,6 +38,10 @@ dependencies {
     implementation 'com.getbase:floatingactionbutton:1.10.1'
     implementation 'com.android.billingclient:billing:1.0'
 
+    //implementation 'com.google.firebase:firebase-ads:17.2.1'
+    implementation 'com.google.firebase:firebase-ads:17.2.1'
+    //implementation 'com.google.android.gms:play-services-ads:17.2.1'
+
     implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'com.google.firebase:firebase-config:17.0.0'
 }

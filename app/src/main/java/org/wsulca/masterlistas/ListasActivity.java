@@ -35,6 +35,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.vending.billing.IInAppBillingService;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -69,11 +71,19 @@ public class ListasActivity extends AppCompatActivity implements NavigationView.
     private final String ID_ARTICULO = "org.wsulca.masterlistas.producto";
     private final int INAPP_BILLING = 1;
     private final String developerPayLoad = "información adicional";
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listas);
+
+        adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR) // All emulators
+                .addTestDevice("AF597A4AD235888D1F9BE3608FE9944C").build();
+        adView.loadAd(adRequest);
+
         showCrossPromoDialog();
         serviceConectInAppBilling();
         analytics = FirebaseAnalytics.getInstance(this);

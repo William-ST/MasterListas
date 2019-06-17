@@ -12,6 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_masterlistas_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8463629781885335~1543034507"/>
+
         <activity android:name="org.wsulca.masterlistas.RegistroActivity"></activity>
         <activity android:name="org.wsulca.masterlistas.DetalleListaActivity" />
         <activity android:name="org.wsulca.masterlistas.InicioSesionActivity">
