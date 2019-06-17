@@ -3,17 +3,17 @@
 (X) Ejercicio: Compartir contenido y añadir la URL
 (X) Ejercicio: Compartir fichero y añadir la URL
 (_) Ejercicio: Utilizar la técnica puntúa mi aplicación en MasterListas
-(_) Ejercicio: Compartir la URL del desarrollador en MasterListas
-(_) Ejercicio: Crear un dialog para hacer cross-promotion
-(_) Ejercicio: Crear Campaña Universal de Aplicaciones en AdWords
-(_) Ejercicio: Optimizar campaña por conversiones (adjuntar captura)
+(X) Ejercicio: Compartir la URL del desarrollador en MasterListas
+(X) Ejercicio: Crear un dialog para hacer cross-promotion
+(X) Ejercicio: Crear Campaña Universal de Aplicaciones en AdWords
+(X) Ejercicio: Optimizar campaña por conversiones (adjuntar captura)
 (_) Ejercicio: Añadir un Banner de AdMob a MasterListas
 (_) Ejercicio: Añadir un anuncio Intersticial de Admob a MasterListas
 (_) Ejercicio: Añadir un video bonificado de Admob a MasterListas
-(_) Ejercicio: Comprar un artículo no recurrente
-(_) Ejercicio: Comprar un artículo recurrente
-(_) Ejercicio: Consultar los artículos disponibles
-(_) Ejercicio: Consultar los artículos comprados
+(X) Ejercicio: Comprar un artículo no recurrente
+(X) Ejercicio: Comprar un artículo recurrente
+(X) Ejercicio: Consultar los artículos disponibles
+(X) Ejercicio: Consultar los artículos comprados
 
 Extras: (de más fácil a más difícil)
 (_) Ejercicio: Comprar una suscripción

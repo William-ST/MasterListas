@@ -1,10 +1,18 @@
 package org.wsulca.masterlistas;
 
+import android.app.Dialog;
+import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -23,8 +31,10 @@ import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -32,6 +42,9 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -50,10 +63,19 @@ public class ListasActivity extends AppCompatActivity implements NavigationView.
     private FirebaseRemoteConfig remoteConfig;
     private static final int CACHE_TIME_SECONDS = 3600; // 10 HORAS
 
+    private IInAppBillingService serviceBilling;
+    private ServiceConnection serviceConnection;
+
+    private final String ID_ARTICULO = "org.wsulca.masterlistas.producto";
+    private final int INAPP_BILLING = 1;
+    private final String developerPayLoad = "información adicional";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listas);
+        showCrossPromoDialog();
+        serviceConectInAppBilling();
         analytics = FirebaseAnalytics.getInstance(this);
         remoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings config = new FirebaseRemoteConfigSettings
@@ -201,6 +223,17 @@ public class ListasActivity extends AppCompatActivity implements NavigationView.
                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
                 compatirBitmap(bitmap, "Compartido por: " + "http://play.google.com/store/apps/details?id=" + getPackageName());
                 break;
+
+
+            case R.id.nav_compartir_desarrollador:
+                compatirTexto("https://play.google.com/store/apps/developer?id=Sulca+Talavera+William");
+                break;
+            case R.id.nav_articulo_no_recurrente:
+                comprarProductoNoRecurrente();
+                break;
+            case R.id.nav_consulta_inapps_disponibles:
+                getInAppInformationOfProducts();
+                break;
         }
         return false;
     }
@@ -225,7 +258,7 @@ public class ListasActivity extends AppCompatActivity implements NavigationView.
         // Obtenemos la URI usando el FileProvider
         File path = new File(getCacheDir(), "images");
         File file = new File(path, "image.png");
-        Uri uri = FileProvider.getUriForFile(this, getPackageName()+".fileprovider", file); //Compartimos la URI
+        Uri uri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", file); //Compartimos la URI
         if (uri != null) {
             Intent i = new Intent(Intent.ACTION_SEND);
             i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -236,4 +269,161 @@ public class ListasActivity extends AppCompatActivity implements NavigationView.
             startActivity(Intent.createChooser(i, "Selecciona aplicación"));
         }
     }
+
+    private void showCrossPromoDialog() {
+        final Dialog dialog = new Dialog(this, R.style.Theme_AppCompat);
+        dialog.setContentView(R.layout.dialog_crosspromotion);
+        dialog.setCancelable(true);
+        Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        Button boton = (Button) dialog.findViewById(R.id.buttonDescargar);
+        boton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?" + "id=com.mimisoftware.emojicreatoremoticonosemoticones")));
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    public void serviceConectInAppBilling() {
+        serviceConnection = new ServiceConnection() {
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                serviceBilling = null;
+            }
+
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                serviceBilling = IInAppBillingService.Stub.asInterface(service);
+                checkPurchasedInAppProducts();
+            }
+        };
+        Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
+        serviceIntent.setPackage("com.android.vending");
+        this.bindService(serviceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    public void comprarProductoNoRecurrente() {
+        if (serviceBilling != null) {
+            Bundle buyIntentBundle = null;
+            try {
+                buyIntentBundle = serviceBilling.getBuyIntent(3, getPackageName(), ID_ARTICULO, "inapp", developerPayLoad);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+            try {
+                if (pendingIntent != null) {
+                    startIntentSenderForResult(pendingIntent.getIntentSender(), INAPP_BILLING, new Intent(), 0, 0, 0);
+                }
+
+            } catch (IntentSender.SendIntentException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(this, "InApp Billing service not available", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void backToBuy(String token) {
+        if (serviceBilling != null) {
+            try {
+                int response = serviceBilling.consumePurchase(3, getPackageName(), token);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void getInAppInformationOfProducts() {
+        ArrayList<String> skuList = new ArrayList<String>();
+        skuList.add(ID_ARTICULO);
+        Bundle querySkus = new Bundle();
+        querySkus.putStringArrayList("ITEM_ID_LIST", skuList);
+        Bundle skuDetails;
+        ArrayList<String> responseList;
+        try {
+            skuDetails = serviceBilling.getSkuDetails(3, getPackageName(), "inapp", querySkus);
+            int response = skuDetails.getInt("RESPONSE_CODE");
+            if (response == 0) {
+                responseList = skuDetails.getStringArrayList("DETAILS_LIST");
+                assert responseList != null;
+                for (String thisResponse : responseList) {
+                    JSONObject object = new JSONObject(thisResponse);
+                    String ref = object.getString("productId");
+                    System.out.println("Product Reference: " + ref);
+                    String price = object.getString("price");
+                    System.out.println("Product Price: " + price);
+                }
+            }
+        } catch (RemoteException | JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void checkPurchasedInAppProducts() {
+        Bundle ownedItemsInApp = null;
+        if (serviceBilling != null) {
+            try {
+                ownedItemsInApp = serviceBilling.getPurchases(3, getPackageName(), "inapp", null);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            int response = ownedItemsInApp.getInt("RESPONSE_CODE");
+            System.out.println(response);
+            if (response == 0) {
+                ArrayList<String> ownedSkus = ownedItemsInApp.getStringArrayList("INAPP_PURCHASE_ITEM_LIST");
+                ArrayList<String> purchaseDataList = ownedItemsInApp.getStringArrayList("INAPP_PURCHASE_DATA_LIST");
+                ArrayList<String> signatureList = ownedItemsInApp.getStringArrayList("INAPP_DATA_SIGNATURE_LIST");
+                String continuationToken = ownedItemsInApp.getString("INAPP_CONTINUATION_TOKEN");
+                for (int i = 0; i < purchaseDataList.size(); ++i) {
+                    String purchaseData = purchaseDataList.get(i);
+                    String signature = signatureList.get(i);
+                    String sku = ownedSkus.get(i);
+                    System.out.println("Inapp Purchase data: " + purchaseData);
+                    System.out.println("Inapp Signature: " + signature);
+                    System.out.println("Inapp Sku: " + sku);
+                    if (sku.equals(ID_ARTICULO)) {
+                        Toast.makeText(this, "Articulo comprado: " + sku + "el dia " + purchaseData, Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case INAPP_BILLING: {
+                int responseCode = data.getIntExtra("RESPONSE_CODE", 0);
+                String purchaseData =
+                        data.getStringExtra("INAPP_PURCHASE_DATA");
+                String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
+                if (resultCode == RESULT_OK) {
+                    try {
+                        JSONObject jo = new JSONObject(purchaseData);
+                        String sku = jo.getString("productId");
+                        String developerPayload = jo.getString("developerPayload");
+                        String purchaseToken = jo.getString("purchaseToken");
+                        if (sku.equals(ID_ARTICULO)) {
+                            Toast.makeText(this, "Compra completada", Toast.LENGTH_LONG).show();
+                            backToBuy(purchaseToken);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            break;
+            default:
+                break;
+        }
+    }
+
 }
