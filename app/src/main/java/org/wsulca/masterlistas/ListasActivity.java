@@ -64,6 +64,8 @@ import java.util.List;
 
 public class ListasActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private final String TAG = ListasActivity.class.getCanonicalName();
+
     private FlowingDrawer mDrawer;
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
@@ -303,6 +305,11 @@ public class ListasActivity extends AppCompatActivity implements NavigationView.
         f.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (interstitialAd == null) {
+                    Toast.makeText(ListasActivity.this, "crash por el ejercicio X", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (interstitialAd.isLoaded()) {
                     interstitialAd.show();
                 } else {
@@ -442,6 +449,7 @@ public class ListasActivity extends AppCompatActivity implements NavigationView.
 
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
+                Log.d(TAG, "onServiceConnected");
                 serviceBilling = IInAppBillingService.Stub.asInterface(service);
                 checkPurchasedInAppProducts();
                 checkPurchasedSubscriptions();

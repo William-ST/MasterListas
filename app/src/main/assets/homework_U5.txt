@@ -10,18 +10,18 @@
 (X) Ejercicio: Añadir un Banner de AdMob a MasterListas
 (X) Ejercicio: Añadir un anuncio Intersticial de Admob a MasterListas
 (X) Ejercicio: Añadir un video bonificado de Admob a MasterListas
-(X) Ejercicio: Comprar un artículo no recurrente
-(X) Ejercicio: Comprar un artículo recurrente
+(_) Ejercicio: Comprar un artículo no recurrente
+(_) Ejercicio: Comprar un artículo recurrente
 (X) Ejercicio: Consultar los artículos disponibles
-(X) Ejercicio: Consultar los artículos comprados
+(_) Ejercicio: Consultar los artículos comprados
 
 Extras: (de más fácil a más difícil)
-(X) Ejercicio: Comprar una suscripción
-(X) Ejercicio: Consultar las suscripciones disponibles
-(X) Ejercicio: Consultar las suscriciones compradas
-(X) Práctica: Pagar para eliminar los anuncios
+(_) Ejercicio: Comprar una suscripción
+(_) Ejercicio: Consultar las suscripciones disponibles
+(_) Ejercicio: Consultar las suscriciones compradas
+(_) Práctica: Pagar para eliminar los anuncios
 (X) Ejercicio: Promocionar tu app en Facebook (adjuntar captura)
 (_) Ejercicio: Añadir un anuncio Banner de Facebook a MasterListas
 (_) Ejercicio: Añadir un anuncio Intersticial de Facebook a MasterListas
 (_) Ejercicio: Añadir un anuncio nativo de Facebook a MasterListas
-(X) Práctica: Crear una página de desarrollador en Google Play
+(X) Práctica: Crear una página de desarrollador en Google Play (https://play.google.com/store/apps/dev?id=8627272725617681198)
