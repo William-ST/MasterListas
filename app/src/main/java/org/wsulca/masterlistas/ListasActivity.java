@@ -35,8 +35,15 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.vending.billing.IInAppBillingService;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -72,17 +79,111 @@ public class ListasActivity extends AppCompatActivity implements NavigationView.
     private final int INAPP_BILLING = 1;
     private final String developerPayLoad = "información adicional";
     private AdView adView;
+    private InterstitialAd interstitialAd;
+    private RewardedVideoAd ad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listas);
 
+        ad = MobileAds.getRewardedVideoAdInstance(this);
+        ad.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+            @Override
+            public void onRewardedVideoAdLoaded() {
+                Toast.makeText(ListasActivity.this, "Vídeo Bonificado cargado",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRewardedVideoAdOpened() {
+            }
+
+            @Override
+            public void onRewardedVideoStarted() {
+            }
+
+            @Override
+            public void onRewardedVideoAdClosed() {
+                ad.loadAd("ca-app-pub-8463629781885335/9443374126", new AdRequest.Builder()
+                        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR) // All emulators
+                        .addTestDevice("AF597A4AD235888D1F9BE3608FE9944C")
+                        .build());
+            }
+
+            @Override
+            public void onRewarded(RewardItem rewardItem) {
+                Toast.makeText(ListasActivity.this, "onRewarded: moneda virtual: " + rewardItem.getType() + " aumento: " + rewardItem.getAmount(),
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRewardedVideoAdLeftApplication() {
+            }
+
+            @Override
+            public void onRewardedVideoAdFailedToLoad(int i) {
+            }
+
+            @Override
+            public void onRewardedVideoCompleted() {
+
+            }
+        });
+        ad.loadAd("ca-app-pub-8463629781885335/9443374126", new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR) // All emulators
+                .addTestDevice("AF597A4AD235888D1F9BE3608FE9944C")
+                .build());
+
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId("ca-app-pub-8463629781885335/5971032978");
+        interstitialAd.loadAd(new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("AF597A4AD235888D1F9BE3608FE9944C")
+                .build());
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("ca-app-pub-8463629781885335/5971032978").build());
+            }
+        });
+
         adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR) // All emulators
                 .addTestDevice("AF597A4AD235888D1F9BE3608FE9944C").build();
         adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                Log.d(ListasActivity.class.getCanonicalName(), "onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                Log.d(ListasActivity.class.getCanonicalName(), "onAdFailedToLoad errorCode: " + errorCode);
+            }
+
+            @Override
+            public void onAdOpened() {
+                Log.d(ListasActivity.class.getCanonicalName(), "onAdOpened");
+            }
+
+            @Override
+            public void onAdClicked() {
+                Log.d(ListasActivity.class.getCanonicalName(), "onAdClicked");
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                Log.d(ListasActivity.class.getCanonicalName(), "onAdLeftApplication");
+            }
+
+            @Override
+            public void onAdClosed() {
+                Log.d(ListasActivity.class.getCanonicalName(), "onAdClosed");
+            }
+        });
 
         showCrossPromoDialog();
         serviceConectInAppBilling();
@@ -189,6 +290,19 @@ public class ListasActivity extends AppCompatActivity implements NavigationView.
 
         abrePrimeraVez(); // se abre la siguiente vez que ingresa, ya que el remote config puede
         // tardar en sincronizar y sería mala experiencia mostrarle el menu cuando no haya hecho mada
+
+        FloatingActionButton f = (FloatingActionButton) findViewById(R.id.fab);
+        f.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
+                } else {
+                    Toast.makeText(ListasActivity.this,
+                            "El Anuncio no esta disponible aun", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -243,6 +357,10 @@ public class ListasActivity extends AppCompatActivity implements NavigationView.
                 break;
             case R.id.nav_consulta_inapps_disponibles:
                 getInAppInformationOfProducts();
+                break;
+            case R.id.nav_1:
+                if (ad.isLoaded()) {
+                    ad.show(); }
                 break;
         }
         return false;
