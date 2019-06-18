@@ -38,5 +38,10 @@
     <string name="compartir">Compartir App</string>
     <string name="compartir_logo">Compartir Logo</string>
     <string name="compartir_lista">Compartir Lista</string>
+    <string name="compartir_desarrollador">Compartir Desarrollador</string>
+    <string name="compra_no_recurrente">Compra no recurrente</string>
+    <string name="in_apps_disponibles">In-apps disponibles</string>
+    <string name="compra_suscripcio_n">Compra Suscripción</string>
+    <string name="suscripciones_disponibles">Suscripciones disponibles</string>
 
 </resources>

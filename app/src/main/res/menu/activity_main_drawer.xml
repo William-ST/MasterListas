@@ -43,6 +43,28 @@
                 android:icon="@android:drawable/ic_menu_share"
                 android:title="@string/compartir_logo" />
 
+            <item
+                android:id="@+id/nav_compartir_desarrollador"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="@string/compartir_desarrollador" />
+
+            <item
+                android:id="@+id/nav_articulo_no_recurrente"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="@string/compra_no_recurrente" />
+
+            <item
+                android:id="@+id/nav_consulta_inapps_disponibles"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="@string/in_apps_disponibles" />
+
+            <item android:id="@+id/nav_susbripcion"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="@string/compra_suscripcio_n" />
+
+            <item android:id="@+id/nav_consulta_subs_disponibles"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="@string/suscripciones_disponibles" />
         </menu>
     </item>
 </menu>

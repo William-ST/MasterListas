@@ -33,7 +33,7 @@
     <string name="fab_pressed">The FAB was pressed</string>
     <string name="fetch_successfully">Fetch OK</string>
     <string name="fetch_failure">Fetch failure</string>
-    <string name="opcio_n_1">Option 1</string>
+    <string name="opcio_n_1">Vídeo Bonificado</string>
     <string name="opcio_n_2">Option 2</string>
     <string name="opcio_n_3">Option 3</string>
     <string name="acciones_adicionales">Additional actions</string>
@@ -41,5 +41,10 @@
     <string name="compartir">Share App</string>
     <string name="compartir_logo">Compartir Logo</string>
     <string name="compartir_lista">Compartir Lista</string>
+    <string name="compartir_desarrollador">Compartir Desarrollador</string>
+    <string name="compra_no_recurrente">Compra no recurrente</string>
+    <string name="in_apps_disponibles">In-apps disponibles</string>
+    <string name="compra_suscripcio_n">Compra Suscripción</string>
+    <string name="suscripciones_disponibles">Suscripciones disponibles</string>
 
 </resources>

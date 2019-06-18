@@ -1,10 +1,19 @@
 package org.wsulca.masterlistas;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -23,8 +32,19 @@ import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.vending.billing.IInAppBillingService;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -32,6 +52,9 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -50,10 +73,125 @@ public class ListasActivity extends AppCompatActivity implements NavigationView.
     private FirebaseRemoteConfig remoteConfig;
     private static final int CACHE_TIME_SECONDS = 3600; // 10 HORAS
 
+    private IInAppBillingService serviceBilling;
+    private ServiceConnection serviceConnection;
+
+    private final String ID_ARTICULO = "org.wsulca.masterlistas.producto";
+    private final int INAPP_BILLING = 1;
+    private final String developerPayLoad = "información adicional";
+    private AdView adView;
+    private InterstitialAd interstitialAd;
+    private RewardedVideoAd ad;
+    private final String ID_SUSCRIPCION = "org.wsulca.masterlistas.suscripcion";
+    private boolean showInterticial = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listas);
+
+        ad = MobileAds.getRewardedVideoAdInstance(this);
+        ad.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+            @Override
+            public void onRewardedVideoAdLoaded() {
+                Toast.makeText(ListasActivity.this, "Vídeo Bonificado cargado",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRewardedVideoAdOpened() {
+            }
+
+            @Override
+            public void onRewardedVideoStarted() {
+            }
+
+            @Override
+            public void onRewardedVideoAdClosed() {
+                ad.loadAd("ca-app-pub-8463629781885335/9443374126", new AdRequest.Builder()
+                        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR) // All emulators
+                        .addTestDevice("AF597A4AD235888D1F9BE3608FE9944C")
+                        .build());
+            }
+
+            @Override
+            public void onRewarded(RewardItem rewardItem) {
+                Toast.makeText(ListasActivity.this, "onRewarded: moneda virtual: " + rewardItem.getType() + " aumento: " + rewardItem.getAmount(),
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRewardedVideoAdLeftApplication() {
+            }
+
+            @Override
+            public void onRewardedVideoAdFailedToLoad(int i) {
+            }
+
+            @Override
+            public void onRewardedVideoCompleted() {
+
+            }
+        });
+        ad.loadAd("ca-app-pub-8463629781885335/9443374126", new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR) // All emulators
+                .addTestDevice("AF597A4AD235888D1F9BE3608FE9944C")
+                .build());
+
+        /*
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId("ca-app-pub-8463629781885335/5971032978");
+        interstitialAd.loadAd(new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("AF597A4AD235888D1F9BE3608FE9944C")
+                .build());
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("ca-app-pub-8463629781885335/5971032978").build());
+            }
+        });
+        */
+
+        adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR) // All emulators
+                .addTestDevice("AF597A4AD235888D1F9BE3608FE9944C").build();
+        adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                Log.d(ListasActivity.class.getCanonicalName(), "onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                Log.d(ListasActivity.class.getCanonicalName(), "onAdFailedToLoad errorCode: " + errorCode);
+            }
+
+            @Override
+            public void onAdOpened() {
+                Log.d(ListasActivity.class.getCanonicalName(), "onAdOpened");
+            }
+
+            @Override
+            public void onAdClicked() {
+                Log.d(ListasActivity.class.getCanonicalName(), "onAdClicked");
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                Log.d(ListasActivity.class.getCanonicalName(), "onAdLeftApplication");
+            }
+
+            @Override
+            public void onAdClosed() {
+                Log.d(ListasActivity.class.getCanonicalName(), "onAdClosed");
+            }
+        });
+
+        showCrossPromoDialog();
+        serviceConectInAppBilling();
 
         new Ratemyapp(this).app_launched();
 
@@ -160,6 +298,19 @@ public class ListasActivity extends AppCompatActivity implements NavigationView.
 
         abrePrimeraVez(); // se abre la siguiente vez que ingresa, ya que el remote config puede
         // tardar en sincronizar y sería mala experiencia mostrarle el menu cuando no haya hecho mada
+
+        FloatingActionButton f = (FloatingActionButton) findViewById(R.id.fab);
+        f.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
+                } else {
+                    Toast.makeText(ListasActivity.this,
+                            "El Anuncio no esta disponible aun", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -204,6 +355,28 @@ public class ListasActivity extends AppCompatActivity implements NavigationView.
                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
                 compatirBitmap(bitmap, "Compartido por: " + "http://play.google.com/store/apps/details?id=" + getPackageName());
                 break;
+
+
+            case R.id.nav_compartir_desarrollador:
+                compatirTexto("https://play.google.com/store/apps/developer?id=Sulca+Talavera+William");
+                break;
+            case R.id.nav_articulo_no_recurrente:
+                comprarProductoNoRecurrente();
+                break;
+            case R.id.nav_consulta_inapps_disponibles:
+                getInAppInformationOfProducts();
+                break;
+            case R.id.nav_1:
+                if (ad.isLoaded()) {
+                    ad.show();
+                }
+                break;
+            case R.id.nav_susbripcion:
+                comprarSuscripcion(ListasActivity.this);
+                break;
+            case R.id.nav_consulta_subs_disponibles:
+                getSubscriptionInformationOfProducts();
+                break;
         }
         return false;
     }
@@ -228,7 +401,7 @@ public class ListasActivity extends AppCompatActivity implements NavigationView.
         // Obtenemos la URI usando el FileProvider
         File path = new File(getCacheDir(), "images");
         File file = new File(path, "image.png");
-        Uri uri = FileProvider.getUriForFile(this, getPackageName()+".fileprovider", file); //Compartimos la URI
+        Uri uri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", file); //Compartimos la URI
         if (uri != null) {
             Intent i = new Intent(Intent.ACTION_SEND);
             i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -239,4 +412,277 @@ public class ListasActivity extends AppCompatActivity implements NavigationView.
             startActivity(Intent.createChooser(i, "Selecciona aplicación"));
         }
     }
+
+    private void showCrossPromoDialog() {
+        final Dialog dialog = new Dialog(this, R.style.Theme_AppCompat);
+        dialog.setContentView(R.layout.dialog_crosspromotion);
+        dialog.setCancelable(true);
+        Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        Button boton = (Button) dialog.findViewById(R.id.buttonDescargar);
+        boton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?" + "id=com.mimisoftware.emojicreatoremoticonosemoticones")));
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    public void serviceConectInAppBilling() {
+        serviceConnection = new ServiceConnection() {
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                serviceBilling = null;
+            }
+
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                serviceBilling = IInAppBillingService.Stub.asInterface(service);
+                checkPurchasedInAppProducts();
+                checkPurchasedSubscriptions();
+            }
+        };
+        Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
+        serviceIntent.setPackage("com.android.vending");
+        this.bindService(serviceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    public void comprarProductoNoRecurrente() {
+        if (serviceBilling != null) {
+            Bundle buyIntentBundle = null;
+            try {
+                buyIntentBundle = serviceBilling.getBuyIntent(3, getPackageName(), ID_ARTICULO, "inapp", developerPayLoad);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+            try {
+                if (pendingIntent != null) {
+                    startIntentSenderForResult(pendingIntent.getIntentSender(), INAPP_BILLING, new Intent(), 0, 0, 0);
+                }
+
+            } catch (IntentSender.SendIntentException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(this, "InApp Billing service not available", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void backToBuy(String token) {
+        if (serviceBilling != null) {
+            try {
+                int response = serviceBilling.consumePurchase(3, getPackageName(), token);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void getInAppInformationOfProducts() {
+        ArrayList<String> skuList = new ArrayList<String>();
+        skuList.add(ID_ARTICULO);
+        Bundle querySkus = new Bundle();
+        querySkus.putStringArrayList("ITEM_ID_LIST", skuList);
+        Bundle skuDetails;
+        ArrayList<String> responseList;
+        try {
+            skuDetails = serviceBilling.getSkuDetails(3, getPackageName(), "inapp", querySkus);
+            int response = skuDetails.getInt("RESPONSE_CODE");
+            if (response == 0) {
+                responseList = skuDetails.getStringArrayList("DETAILS_LIST");
+                assert responseList != null;
+                for (String thisResponse : responseList) {
+                    JSONObject object = new JSONObject(thisResponse);
+                    String ref = object.getString("productId");
+                    System.out.println("Product Reference: " + ref);
+                    String price = object.getString("price");
+                    System.out.println("Product Price: " + price);
+                }
+            }
+        } catch (RemoteException | JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void checkPurchasedInAppProducts() {
+        Bundle ownedItemsInApp = null;
+        if (serviceBilling != null) {
+            try {
+                ownedItemsInApp = serviceBilling.getPurchases(3, getPackageName(), "inapp", null);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            int response = ownedItemsInApp.getInt("RESPONSE_CODE");
+            System.out.println(response);
+            if (response == 0) {
+                ArrayList<String> ownedSkus = ownedItemsInApp.getStringArrayList("INAPP_PURCHASE_ITEM_LIST");
+                ArrayList<String> purchaseDataList = ownedItemsInApp.getStringArrayList("INAPP_PURCHASE_DATA_LIST");
+                ArrayList<String> signatureList = ownedItemsInApp.getStringArrayList("INAPP_DATA_SIGNATURE_LIST");
+                String continuationToken = ownedItemsInApp.getString("INAPP_CONTINUATION_TOKEN");
+                for (int i = 0; i < purchaseDataList.size(); ++i) {
+                    String purchaseData = purchaseDataList.get(i);
+                    String signature = signatureList.get(i);
+                    String sku = ownedSkus.get(i);
+                    System.out.println("Inapp Purchase data: " + purchaseData);
+                    System.out.println("Inapp Signature: " + signature);
+                    System.out.println("Inapp Sku: " + sku);
+                    if (sku.equals(ID_ARTICULO)) {
+                        Toast.makeText(this, "Articulo comprado: " + sku + "el dia " + purchaseData, Toast.LENGTH_LONG).show();
+                        setAds(false);
+                    } else {
+                        setAds(true);
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case INAPP_BILLING: {
+                int responseCode = data.getIntExtra("RESPONSE_CODE", 0);
+                String purchaseData =
+                        data.getStringExtra("INAPP_PURCHASE_DATA");
+                String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
+                if (resultCode == RESULT_OK) {
+                    try {
+                        JSONObject jo = new JSONObject(purchaseData);
+                        String sku = jo.getString("productId");
+                        String developerPayload = jo.getString("developerPayload");
+                        String purchaseToken = jo.getString("purchaseToken");
+
+                        if (sku.equals(ID_ARTICULO)) {
+                            Toast.makeText(this, "Compra " + sku + " completada", Toast.LENGTH_LONG).show();
+                            setAds(false);
+                            backToBuy(purchaseToken);
+                        } else if (sku.equals(ID_SUSCRIPCION)) {
+                            Toast.makeText(this, "Suscrición correcta", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            break;
+            default:
+                break;
+        }
+    }
+
+    public void comprarSuscripcion(Activity activity) {
+        if (serviceBilling != null) {
+            Bundle buyIntentBundle = null;
+            try {
+                buyIntentBundle = serviceBilling.getBuyIntent(3, activity.getPackageName(),
+                        ID_SUSCRIPCION, "subs", developerPayLoad);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            assert buyIntentBundle != null;
+            PendingIntent pendingIntent =
+                    buyIntentBundle.getParcelable("BUY_INTENT");
+            try {
+                assert pendingIntent != null;
+                activity.startIntentSenderForResult(
+                        pendingIntent.getIntentSender(), INAPP_BILLING, new Intent(), 0, 0, 0);
+            } catch (IntentSender.SendIntentException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(activity, "InApp Billing service not available", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void getSubscriptionInformationOfProducts() {
+        ArrayList<String> skuListSubs = new ArrayList<String>();
+        skuListSubs.add(ID_SUSCRIPCION);
+        Bundle querySkusSubs = new Bundle();
+        querySkusSubs.putStringArrayList("ITEM_ID_LIST", skuListSubs);
+        Bundle skuDetailsSubs;
+        ArrayList<String> responseListSubs;
+        try {
+            skuDetailsSubs = serviceBilling.getSkuDetails(3, getPackageName(), "subs", querySkusSubs);
+            int responseSubs = skuDetailsSubs.getInt("RESPONSE_CODE");
+            System.out.println(responseSubs);
+            if (responseSubs == 0) {
+                responseListSubs = skuDetailsSubs.getStringArrayList("DETAILS_LIST");
+                assert responseListSubs != null;
+                for (String thisResponse : responseListSubs) {
+                    JSONObject object = new JSONObject(thisResponse);
+                    String ref = object.getString("productId");
+                    System.out.println("Subscription Reference: " + ref);
+                    String price = object.getString("price");
+                    System.out.println("Subscription Price: " + price);
+                }
+            }
+        } catch (RemoteException | JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void checkPurchasedSubscriptions() {
+        Bundle ownedItemsInApp = null;
+        if (serviceBilling != null) {
+
+            try {
+                ownedItemsInApp = serviceBilling.getPurchases(
+                        3, getPackageName(), "subs", null);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            int response = ownedItemsInApp.getInt("RESPONSE_CODE");
+            System.out.println(response);
+            if (response == 0) {
+                ArrayList<String> ownedSkus = ownedItemsInApp.getStringArrayList("INAPP_PURCHASE_ITEM_LIST");
+                ArrayList<String> purchaseDataList = ownedItemsInApp.getStringArrayList("INAPP_PURCHASE_DATA_LIST");
+                ArrayList<String> signatureList = ownedItemsInApp.getStringArrayList("INAPP_DATA_SIGNATURE_LIST");
+                String continuationToken = ownedItemsInApp.getString("INAPP_CONTINUATION_TOKEN");
+                for (int i = 0; i < purchaseDataList.size(); ++i) {
+                    String purchaseData = purchaseDataList.get(i);
+                    String signature = signatureList.get(i);
+                    String sku = ownedSkus.get(i);
+                    System.out.println("SPurchase data: " + purchaseData);
+                    System.out.println("Signature: " + signature);
+                    System.out.println("Sku: " + sku);
+                    if (sku.equals(ID_SUSCRIPCION)) {
+                        Toast.makeText(this, "Suscrito correctamente: " + sku + "el dia " + purchaseData, Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        }
+    }
+
+    private void setAds(Boolean adsEnabled) {
+        if (adsEnabled) {
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR) // All emulators
+                    .addTestDevice("AF597A4AD235888D1F9BE3608FE9944C").build();
+            adView.loadAd(adRequest);
+            interstitialAd = new InterstitialAd(this);
+            interstitialAd.setAdUnitId("ca-app-pub-8463629781885335/5971032978");
+            interstitialAd.loadAd(new AdRequest.Builder()
+                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR) // All emulators
+                    .addTestDevice("AF597A4AD235888D1F9BE3608FE9944C").build());
+            interstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    interstitialAd.loadAd(new AdRequest.Builder()
+                            .addTestDevice(AdRequest.DEVICE_ID_EMULATOR) // All emulators
+                            .addTestDevice("AF597A4AD235888D1F9BE3608FE9944C").build());
+                }
+            });
+            showInterticial = true;
+        } else {
+            showInterticial = false;
+            adView.setVisibility(View.GONE);
+        }
+    }
+
 }
