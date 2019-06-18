@@ -2,7 +2,7 @@
 (X) Ejercicio: Compartir la URL de MasterListas
 (X) Ejercicio: Compartir contenido y añadir la URL
 (X) Ejercicio: Compartir fichero y añadir la URL
-(_) Ejercicio: Utilizar la técnica puntúa mi aplicación en MasterListas
+(X) Ejercicio: Utilizar la técnica puntúa mi aplicación en MasterListas
 (_) Ejercicio: Compartir la URL del desarrollador en MasterListas
 (_) Ejercicio: Crear un dialog para hacer cross-promotion
 (_) Ejercicio: Crear Campaña Universal de Aplicaciones en AdWords

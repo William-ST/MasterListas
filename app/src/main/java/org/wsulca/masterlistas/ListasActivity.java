@@ -54,6 +54,9 @@ public class ListasActivity extends AppCompatActivity implements NavigationView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listas);
+
+        new Ratemyapp(this).app_launched();
+
         analytics = FirebaseAnalytics.getInstance(this);
         remoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings config = new FirebaseRemoteConfigSettings
