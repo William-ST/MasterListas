@@ -1,4 +1,11 @@
 
+Buenas tardes profesor, adjunto la entrega de la tarea,
+además adjunto un error que no me permitió realizar las tareas extras
+de facebook al registrarme en facebook business no me dejaba continuar (como un bucle)
+(Error_Registrar_Cuenta_EmpresaFacebook.png)
+
+https://play.google.com/apps/testing/org.wsulca.masterlistas
+
 (X) Ejercicio: Compartir la URL de MasterListas
 (X) Ejercicio: Compartir contenido y añadir la URL
 (X) Ejercicio: Compartir fichero y añadir la URL
@@ -10,16 +17,16 @@
 (X) Ejercicio: Añadir un Banner de AdMob a MasterListas
 (X) Ejercicio: Añadir un anuncio Intersticial de Admob a MasterListas
 (X) Ejercicio: Añadir un video bonificado de Admob a MasterListas
-(_) Ejercicio: Comprar un artículo no recurrente
-(_) Ejercicio: Comprar un artículo recurrente
+(X) Ejercicio: Comprar un artículo no recurrente
+(X) Ejercicio: Comprar un artículo recurrente
 (X) Ejercicio: Consultar los artículos disponibles
-(_) Ejercicio: Consultar los artículos comprados
+(X) Ejercicio: Consultar los artículos comprados
 
 Extras: (de más fácil a más difícil)
-(_) Ejercicio: Comprar una suscripción
-(_) Ejercicio: Consultar las suscripciones disponibles
-(_) Ejercicio: Consultar las suscriciones compradas
-(_) Práctica: Pagar para eliminar los anuncios
+(X) Ejercicio: Comprar una suscripción
+(X) Ejercicio: Consultar las suscripciones disponibles
+(X) Ejercicio: Consultar las suscriciones compradas
+(X) Práctica: Pagar para eliminar los anuncios
 (X) Ejercicio: Promocionar tu app en Facebook (adjuntar captura)
 (_) Ejercicio: Añadir un anuncio Banner de Facebook a MasterListas
 (_) Ejercicio: Añadir un anuncio Intersticial de Facebook a MasterListas
